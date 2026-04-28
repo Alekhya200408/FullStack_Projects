@@ -3,6 +3,7 @@ import dotenv from "dotenv"
 import cors from "cors"
 import Dbconnection from "./db/Db_conn.js"
 import router from "./routes/post.routes.js"
+import authrouter from "./routes/auth.routes.js"
 
 const app=express()
 
@@ -15,6 +16,7 @@ app.use(express.urlencoded({extended:true}))
 app.use(express.json())
 
 app.use("/api", router)
+app.use("/auth",authrouter)
 app.get("/",(req,res)=>{
     res.send(`Server is Running`)
 })

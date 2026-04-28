@@ -1,9 +1,13 @@
 import mongoose,{Schema} from "mongoose";
 
 const PostSchema=new Schema({
-    name:{
+    username:{
         type:String,
         required:true,
+        unique:true,
+    },
+    name:{
+        type:String,
         trim:true
     },
     content:{
@@ -13,7 +17,8 @@ const PostSchema=new Schema({
     likes:{
         type:Number,
         default:0
-    }
+    },
+    likedBy:[String]
 },{
     timestamps:true
 })
