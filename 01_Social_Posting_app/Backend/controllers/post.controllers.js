@@ -9,6 +9,7 @@ export const CreatePost=async (req,res) => {
         if (!content) {
             return res.status(400).json({message:"Content is required"})
         }
+        console.log("USER:", req.user)
 
         const post=await PostModel.create({username:req.user.username,name,content})
 

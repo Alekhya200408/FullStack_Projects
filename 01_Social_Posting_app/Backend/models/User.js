@@ -4,7 +4,6 @@ const UserModel=new Schema({
     username:{
         type:String,
         required:true,
-        unique:true,
     },
     password:{
         type:String,
