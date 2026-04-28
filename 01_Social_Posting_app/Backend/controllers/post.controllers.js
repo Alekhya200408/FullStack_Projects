@@ -33,24 +33,24 @@ export const LikePost=async (req,res) => {
     try {
          const post = await PostModel.findById(req.params.id)
 
-    // ✅ check post exists
+    //  check post exists
     if (!post) {
       return res.status(404).json({ message: "Post not found" })
     }
 
     const username = req.user.username
 
-    // ✅ safe check
+    //  safe check
     if (!post.likedBy) {
       post.likedBy = []
     }
 
-    // ❌ already liked
+    //  already liked
     if (post.likedBy.includes(username)) {
       return res.status(400).json({ message: "Already liked" })
     }
 
-    // ✅ like
+    // like
     post.likes += 1
     post.likedBy.push(username)
 
