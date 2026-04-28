@@ -15,7 +15,7 @@ app.use(cors())
 app.use(express.urlencoded({extended:true}))
 app.use(express.json())
 
-app.use("/api", router)
+app.use("/api/posts", router)
 app.use("/auth",authrouter)
 app.get("/",(req,res)=>{
     res.send(`Server is Running`)

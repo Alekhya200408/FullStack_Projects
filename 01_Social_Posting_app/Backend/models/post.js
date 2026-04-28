@@ -18,6 +18,10 @@ const PostSchema=new Schema({
         type:Number,
         default:0
     },
+    unlikes:{
+        type:Number,
+        default:0
+    },
     likedBy:[String]
 },{
     timestamps:true

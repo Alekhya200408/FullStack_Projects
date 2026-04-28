@@ -61,6 +61,39 @@ export const LikePost=async (req,res) => {
         res.status(500).json({ error: error.message })
     }
 }
+// for unlike the post
+// export const unLikePost=async (req,res) => {
+//     try {
+//          const post = await PostModel.findById(req.params.id)
+
+//     //  check post exists
+//     if (!post) {
+//       return res.status(404).json({ message: "Post not found" })
+//     }
+
+//     const username = req.user.username
+
+//     //  safe check
+//     if (!post.likedBy) {
+//       post.likedBy = []
+//     }
+
+//     //  already liked
+//     if (post.likedBy.includes(username)) {
+//       return res.status(400).json({ message: "Already liked" })
+//     }
+
+//     // like
+//     post.likes += 1
+//     post.likedBy.push(username)
+
+//     await post.save()
+
+//     res.json(post) 
+//     } catch (error) {
+//         res.status(500).json({ error: error.message })
+//     }
+// }
 
 export const DeletePost=async (req,res) => {
     try {
