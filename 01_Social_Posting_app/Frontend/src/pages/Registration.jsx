@@ -5,7 +5,7 @@ const Registration = () => {
   const [password, setPassword] = useState("")
 
   const handleRegister = async () => {
-    await fetch("http://localhost:3000/auth/register", {
+    const res=await fetch("http://localhost:3000/auth/register", {
       method: "POST",
       headers: {
         "Content-Type": "application/json"
@@ -13,8 +13,14 @@ const Registration = () => {
       body: JSON.stringify({ username, password })
     })
 
-    alert("Registered successfully")
+    const data = await res.json()
+
+  if (res.ok) {
+    alert("Registered successfully ")
+  } else {
+    alert(data.message)  
   }
+}
 
   return (
     <div>
