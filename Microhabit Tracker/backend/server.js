@@ -1,12 +1,25 @@
 import express from "express"
+import connDB from "./config/db.js"
+import dotenv from "dotenv"
+import  cors from "cors"
+
+dotenv.config()
+
 
 const app=express()
+const PORT=process.env.PORT||5000
 
+connDB()
+
+
+app.use(express.json())
+app.use(cors())
 app.get("/",(req,res)=>{
-    res.send("Hello")
+    res.send("MicroHabit Tracker API is Running")
 })
 
-app.listen(3000,()=>{
-    console.log("App is Running on port 3000");
+
+app.listen(PORT,()=>{
+    console.log(`App is Running on port ${process.env.PORT}`);
     
 })
