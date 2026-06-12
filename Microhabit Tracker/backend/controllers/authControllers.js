@@ -1,5 +1,7 @@
-import User from "../models/User";
+import User from "../models/User.js";
 import bcrypt from "bcryptjs"
+import jwt from "jsonwebtoken"
+
 
 const registerUser=async(req,res)=>{
     try {
@@ -19,7 +21,7 @@ const registerUser=async(req,res)=>{
         const hashedPassword=await bcrypt.hash(password,salt)
         
         // create User
-        const user=User.create({
+        const user=await User.create({
             name,
             email,
             password:hashedPassword,
@@ -45,6 +47,51 @@ const registerUser=async(req,res)=>{
     }
 }
 
-module.exports={
-    registerUser,
+const loginUser=async(req,res)=>{
+    try {
+        const {email,password}=req.body
+
+        const user=User.findOne({email})
+
+        if (!user) {
+            return res.status(400).json({
+                message: "Invalid Email or Password",
+            });
+        }
+
+        const ismatch=bcrypt.compare(password,user.password)
+
+        if(!ismatch){
+            return res.status(400).json({
+                message: "Invalid Email or Password",
+            });
+        }
+        const token=jwt.sign(
+            {
+                id:user._id
+            },
+            process.env.JWT_TOKEN,
+            {
+                expiresIn:"7d"
+            }
+        )
+
+        res.status(201).json({
+            success:true,
+            message:"User Registered",
+            user:{
+                id: user._id,
+                name:user.name,
+                email:user.email,
+                xp:user.xp,
+                level:user.level,
+            }
+        })
+    } catch (error) {
+        res.status(500).json({
+      message: error.message,
+    });
+    }
 }
+
+export  {registerUser,loginUser}

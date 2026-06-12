@@ -1,5 +1,5 @@
 import mongoose,{Schema} from "mongoose";
-import { use } from "react";
+
 
 const userSchema=new Schema({
     name:{
