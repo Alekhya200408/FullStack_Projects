@@ -51,7 +51,7 @@ const loginUser=async(req,res)=>{
     try {
         const {email,password}=req.body
 
-        const user=User.findOne({email})
+        const user=await User.findOne({email})
 
         if (!user) {
             return res.status(400).json({
@@ -59,7 +59,7 @@ const loginUser=async(req,res)=>{
             });
         }
 
-        const ismatch=bcrypt.compare(password,user.password)
+        const ismatch= await bcrypt.compare(password,user.password)
 
         if(!ismatch){
             return res.status(400).json({
@@ -70,15 +70,18 @@ const loginUser=async(req,res)=>{
             {
                 id:user._id
             },
-            process.env.JWT_TOKEN,
+            process.env.JWT_SECRET,
             {
                 expiresIn:"7d"
             }
         )
+        console.log(req.body);
+        console.log(user);
 
         res.status(201).json({
             success:true,
-            message:"User Registered",
+            message:"User LogedIn",
+            token,
             user:{
                 id: user._id,
                 name:user.name,
